@@ -52,11 +52,12 @@ export function About() {
               Uma jornada de transformação humana.
             </p>
             <p>
-              Sou Juliana Freitas, psicoterapeuta e facilitadora de
-              desenvolvimento humano. Minha trajetória nasceu da escuta
-              profunda das relações humanas e da convicção de que saúde
-              emocional, comunicação e consciência transformam pessoas,
-              equipes e ambientes.
+              Sou Juliana Freitas, Pós graduanda em Psicologia Organizacional
+              e Gestão de Pessoas, Facilitadora de desenvolvimento humano e
+              palestrante de impacto emocional. Minha trajetória nasceu da
+              escuta profunda das relações humanas e da convicção de que saúde
+              emocional, comunicação e consciência transformam pessoas, equipes
+              e ambientes.
             </p>
             <p>
               Ao longo da minha prática, desenvolvi uma abordagem que integra

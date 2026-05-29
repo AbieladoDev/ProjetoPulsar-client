@@ -34,7 +34,6 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
     `/certificado/${cert.codigo}`,
   );
 
-  // Gera QR code no client
   useEffect(() => {
     const url = `${window.location.origin}/certificado/${cert.codigo}`;
     setValidationUrl(url);
@@ -84,6 +83,10 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
       setIsDownloading(false);
     }
   }
+
+  const gold = "#c5a44e";
+  const goldLight = "#d4b96a";
+  const greenDark = "#2d4a2d";
 
   return (
     <>
@@ -141,159 +144,192 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
       {/* Certificate */}
       <div
         ref={certRef}
-        className="certificate-print relative mx-auto flex aspect-[297/210] w-full max-w-5xl flex-col justify-between overflow-hidden bg-white p-12 text-foreground shadow-xl"
-        style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+        className="certificate-print relative mx-auto flex aspect-[297/210] w-full max-w-5xl overflow-hidden bg-white shadow-xl"
+        style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
       >
-        {/* Corner brackets (decorativos) */}
-        <CornerBracket position="tl" />
-        <CornerBracket position="tr" />
-        <CornerBracket position="bl" />
-        <CornerBracket position="br" />
-
-        {/* Watermark sutil ao fundo */}
+        {/* ── Left accent bar ── */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-20 top-1/2 -translate-y-1/2 select-none text-[260px] font-bold uppercase leading-none tracking-tighter text-primary/[0.04]"
-        >
-          Pulsar
-        </div>
+          className="absolute left-0 top-0 h-full w-[6px]"
+          style={{ background: gold }}
+        />
 
-        {/* Header */}
-        <div className="relative z-10 flex items-start justify-between">
-          <div className="flex items-center gap-3">
+        {/* ── Top border line ── */}
+        <div
+          aria-hidden
+          className="absolute left-0 top-0 h-[3px] w-full"
+          style={{ background: gold }}
+        />
+
+        {/* ── Bottom border line ── */}
+        <div
+          aria-hidden
+          className="absolute bottom-0 left-0 h-[3px] w-full"
+          style={{ background: gold }}
+        />
+
+        {/* ── Content ── */}
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-between px-16 py-10">
+          {/* Header: logo + title */}
+          <div className="flex w-full items-start">
             <Image
               src="/img/logo.png"
               alt="Projeto Pulsar"
-              width={44}
-              height={44}
+              width={48}
+              height={48}
               className="object-contain"
             />
-            <div className="flex flex-col leading-tight">
-              <span className="text-[10px] font-light uppercase tracking-[0.22em] text-muted-foreground">
-                Projeto
-              </span>
-              <span className="text-lg font-bold tracking-tight">Pulsar</span>
-            </div>
           </div>
-          <div className="text-right">
-            <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              Certificado oficial
+
+          {/* Body */}
+          <div className="flex flex-col items-center text-center" style={{ maxWidth: "620px" }}>
+            <h1
+              className="text-5xl font-bold uppercase tracking-[0.25em]"
+              style={{ color: gold }}
+            >
+              Certificado
+            </h1>
+
+            <p
+              className="mt-4 text-base uppercase tracking-[0.25em]"
+              style={{ color: greenDark }}
+            >
+              Certificamos que a empresa
             </p>
-            <p className="mt-1 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-foreground/70">
-              <span className="size-1 rotate-45 bg-primary" />
-              Participação
-            </p>
-          </div>
-        </div>
 
-        {/* Body */}
-        <div className="relative z-10 flex flex-col items-center text-center">
-          <p className="text-xs font-medium uppercase tracking-[0.4em] text-muted-foreground">
-            Certificado
-          </p>
-          <h1 className="mt-2 text-7xl font-bold uppercase leading-[0.95] tracking-tight text-primary">
-            de Participação
-          </h1>
-
-          <div className="my-8 flex items-center gap-3">
-            <span className="h-px w-12 bg-foreground/30" />
-            <span className="size-1.5 rotate-45 bg-primary" />
-            <span className="h-px w-12 bg-foreground/30" />
-          </div>
-
-          <p className="text-sm uppercase tracking-[0.22em] text-muted-foreground">
-            Certificamos que
-          </p>
-          <h2 className="mt-3 text-5xl font-bold tracking-tight text-foreground">
-            {cert.nome_aluno}
-          </h2>
-
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/80">
-            participou do treinamento{" "}
-            <strong className="font-bold text-foreground">
+            <h2
+              className="mt-3 text-4xl font-bold tracking-tight"
+              style={{ color: "#1a1a1a" }}
+            >
               {cert.nome_empresa}
-            </strong>
-            , realizado em{" "}
-            <strong className="font-bold text-foreground">{cert.local}</strong>,
-            com carga horária de{" "}
-            <strong className="font-bold text-foreground">
-              {cert.duracao}
-            </strong>
-            {cert.data_evento && (
-              <>
-                , em{" "}
-                <strong className="font-bold text-foreground">
-                  {formatDateLong(cert.data_evento)}
-                </strong>
-              </>
-            )}
-            .
-          </p>
-        </div>
+            </h2>
 
-        {/* Footer: code (left) + signature (center) + QR (right) */}
-        <div className="relative z-10 grid grid-cols-3 items-end gap-4">
-          {/* Code */}
-          <div className="text-left">
-            <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground">
-              Código
-            </p>
-            <p className="mt-1 font-mono text-xs font-bold tracking-wider text-foreground">
-              {cert.codigo}
-            </p>
-            <p className="mt-1 max-w-[200px] truncate font-mono text-[8px] text-muted-foreground">
-              {validationUrl.replace(/^https?:\/\//, "")}
-            </p>
-          </div>
-
-          {/* Signature */}
-          <div className="flex flex-col items-center">
-            <div className="h-px w-44 bg-foreground" />
-            <p className="mt-2 text-sm font-semibold tracking-tight text-foreground">
-              Juliana Freitas
-            </p>
-            <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              Psicoterapeuta · Projeto Pulsar
-            </p>
-          </div>
-
-          {/* QR */}
-          <div className="flex flex-col items-end gap-1.5">
-            {qrDataUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={qrDataUrl}
-                alt="QR Code de validação"
-                className="size-20 border border-border bg-white p-1"
+            {/* Gold divider */}
+            <div className="my-4 flex items-center gap-3">
+              <span className="h-px w-16" style={{ background: gold }} />
+              <span
+                className="size-1.5 rotate-45"
+                style={{ background: gold }}
               />
-            ) : (
-              <div className="size-20 border border-dashed border-border bg-muted/30" />
-            )}
-            <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-muted-foreground">
-              Escaneie para validar
+              <span className="h-px w-16" style={{ background: gold }} />
+            </div>
+
+            <p
+              className="text-sm font-semibold uppercase leading-relaxed tracking-wide"
+              style={{ color: greenDark }}
+            >
+              Realizou o Programa Pulsar — Treinamento em Saúde Emocional e
+              Desenvolvimento Humano.
             </p>
+
+            <p
+              className="mt-4 text-[11px] leading-[1.7]"
+              style={{ color: "#444" }}
+            >
+              Como ação institucional voltada ao cuidado com a saúde emocional
+              de seus colaboradores e à atenção aos fatores psicossociais no
+              ambiente de trabalho, em conformidade com as diretrizes da NR-1 —
+              Gerenciamento de Riscos Ocupacionais. O programa foi realizado com
+              a carga horária de{" "}
+              <strong style={{ color: "#1a1a1a" }}>{cert.duracao}</strong>
+              {cert.data_evento && (
+                <>
+                  {" "}no período de{" "}
+                  <strong style={{ color: "#1a1a1a" }}>
+                    {formatDateLong(cert.data_evento)}
+                  </strong>
+                </>
+              )}
+              , incluindo palestra inicial e encontros individuais de apoio ao
+              bem-estar no ambiente de trabalho.
+            </p>
+
+            <p
+              className="mt-5 text-[10px] uppercase tracking-[0.2em]"
+              style={{ color: "#999" }}
+            >
+              Participante
+            </p>
+            <p
+              className="mt-1 text-2xl font-bold tracking-tight"
+              style={{ color: "#1a1a1a" }}
+            >
+              {cert.nome_aluno}
+            </p>
+          </div>
+
+          {/* Footer */}
+          <div className="flex w-full flex-col items-center gap-5">
+            {/* Signature */}
+            <div className="flex flex-col items-center">
+              <div
+                className="mb-2 h-px w-52"
+                style={{ background: "#1a1a1a" }}
+              />
+              <p
+                className="text-sm font-semibold"
+                style={{ color: "#1a1a1a" }}
+              >
+                Juliana Freitas da Silva
+              </p>
+              <p className="text-[9px] tracking-wide" style={{ color: "#888" }}>
+                Mentora do ProjetoPulsar
+              </p>
+            </div>
+
+            {/* Bottom info row */}
+            <div className="flex w-full items-end justify-between">
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="size-1.5 rotate-45"
+                    style={{ background: gold }}
+                  />
+                  <p
+                    className="text-[8px] uppercase tracking-[0.15em]"
+                    style={{ color: "#999" }}
+                  >
+                    Saúde Emocional
+                  </p>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="size-1.5 rotate-45"
+                    style={{ background: gold }}
+                  />
+                  <p
+                    className="text-[8px] uppercase tracking-[0.15em]"
+                    style={{ color: "#999" }}
+                  >
+                    Desenvolvimento Humano
+                  </p>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="size-1.5 rotate-45"
+                    style={{ background: gold }}
+                  />
+                  <p
+                    className="text-[8px] uppercase tracking-[0.15em]"
+                    style={{ color: "#999" }}
+                  >
+                    NR-1 · GRO
+                  </p>
+                </div>
+              </div>
+
+              {/* Logo ABRATH */}
+              <Image
+                src="/logo-abrath.png"
+                alt="ABRATH"
+                width={64}
+                height={64}
+                className="object-contain"
+              />
+            </div>
           </div>
         </div>
       </div>
     </>
-  );
-}
-
-// ─────────────────────────────────────────────
-// Corner brackets (4 cantos decorativos)
-// ─────────────────────────────────────────────
-
-function CornerBracket({ position }: { position: "tl" | "tr" | "bl" | "br" }) {
-  const map = {
-    tl: "left-4 top-4 border-l-2 border-t-2",
-    tr: "right-4 top-4 border-r-2 border-t-2",
-    bl: "left-4 bottom-4 border-b-2 border-l-2",
-    br: "right-4 bottom-4 border-b-2 border-r-2",
-  };
-  return (
-    <div
-      aria-hidden
-      className={`pointer-events-none absolute size-10 border-primary ${map[position]}`}
-    />
   );
 }
