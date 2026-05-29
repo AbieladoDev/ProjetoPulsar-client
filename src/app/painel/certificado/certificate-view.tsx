@@ -168,6 +168,32 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
           style={{ background: gold }}
         />
 
+        {/* ── Watermark pattern ── */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 select-none overflow-hidden"
+          style={{
+            fontSize: "22px",
+            fontWeight: 800,
+            letterSpacing: "0.08em",
+            color: gold,
+            opacity: 0.05,
+            textTransform: "uppercase",
+            fontFamily: "var(--font-space-grotesk), 'Arial Black', sans-serif",
+            lineHeight: "1.4",
+          }}
+        >
+          {Array.from({ length: 30 }).map((_, i) => (
+            <div key={i} className="whitespace-nowrap" style={{ marginLeft: i % 2 === 0 ? "0px" : "-30px" }}>
+              {Array.from({ length: 14 }).map((_, j) => (
+                <span key={j} className="mr-4">
+                  {(i + j) % 2 === 0 ? "PULSAR" : "PROJETO"}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+
         {/* ── Content ── */}
         <div className="relative z-10 flex flex-1 flex-col items-center justify-between px-16 py-10">
           {/* Header: logo + title */}
@@ -175,8 +201,8 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
             <Image
               src="/img/logo.png"
               alt="Projeto Pulsar"
-              width={48}
-              height={48}
+              width={64}
+              height={64}
               className="object-contain"
             />
           </div>
@@ -198,7 +224,7 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
             </p>
 
             <h2
-              className="mt-3 text-4xl font-bold tracking-tight"
+              className="mt-3 text-4xl font-bold uppercase tracking-tight"
               style={{ color: "#1a1a1a" }}
             >
               {cert.nome_empresa}
@@ -251,7 +277,7 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
               Participante
             </p>
             <p
-              className="mt-1 text-2xl font-bold tracking-tight"
+              className="mt-1 text-2xl font-bold uppercase tracking-tight"
               style={{ color: "#1a1a1a" }}
             >
               {cert.nome_aluno}
