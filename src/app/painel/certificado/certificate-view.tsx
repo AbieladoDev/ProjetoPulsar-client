@@ -157,14 +157,21 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
         {/* ── Top border line ── */}
         <div
           aria-hidden
-          className="absolute left-0 top-0 h-[3px] w-full"
+          className="absolute left-0 top-0 h-[6px] w-full"
+          style={{ background: gold }}
+        />
+
+        {/* ── Right accent bar ── */}
+        <div
+          aria-hidden
+          className="absolute right-0 top-0 h-full w-[6px]"
           style={{ background: gold }}
         />
 
         {/* ── Bottom border line ── */}
         <div
           aria-hidden
-          className="absolute bottom-0 left-0 h-[3px] w-full"
+          className="absolute bottom-0 left-0 h-[6px] w-full"
           style={{ background: gold }}
         />
 
@@ -335,7 +342,14 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
 
               {/* Signature + Logo ABRATH */}
               <div className="flex items-end gap-6">
-                <div className="flex flex-col items-center">
+                <div className="relative flex flex-col items-center">
+                  <Image
+                    src="/Assinatura.png"
+                    alt="Assinatura"
+                    width={160}
+                    height={70}
+                    className="absolute -top-20 object-contain"
+                  />
                   <div
                     className="mb-2 h-px w-52"
                     style={{ background: "#1a1a1a" }}
