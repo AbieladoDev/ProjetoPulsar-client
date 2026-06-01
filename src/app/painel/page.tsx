@@ -86,7 +86,10 @@ export default async function PainelHome() {
       {empresa ? (
         <section className="grid gap-4 md:grid-cols-[1.2fr_1fr] lg:gap-5">
           <EmpresaCard empresa={empresa} />
-          <CertificadoCard count={certsCount ?? 0} disabled={false} />
+          <CertificadoCard
+            count={certsCount ?? 0}
+            jaAvaliou={(feedbacksCount ?? 0) > 0}
+          />
         </section>
       ) : (
         <SemEmpresaCard />
@@ -180,10 +183,10 @@ function EmpresaCard({ empresa }: { empresa: Empresa }) {
 
 function CertificadoCard({
   count,
-  disabled,
+  jaAvaliou,
 }: {
   count: number;
-  disabled: boolean;
+  jaAvaliou: boolean;
 }) {
   return (
     <div className="group relative flex flex-col justify-between overflow-hidden bg-foreground p-6 text-background lg:p-7">
@@ -211,22 +214,23 @@ function CertificadoCard({
           Certificado de participação
         </p>
         <h2 className="text-2xl font-bold uppercase leading-[1.05] tracking-tight md:text-3xl">
-          Emitir agora.
+          {jaAvaliou ? "Emitir agora." : "Avaliação pendente."}
         </h2>
         <p className="text-sm text-background/70">
-          Baixe seu certificado oficial em PDF a qualquer momento.
+          {jaAvaliou
+            ? "Baixe seu certificado oficial em PDF a qualquer momento."
+            : "Preencha a avaliação para liberar a emissão do seu certificado."}
         </p>
       </div>
 
       <Link
         href="/painel/certificado"
-        aria-disabled={disabled}
         className={buttonVariants({
           className:
             "mt-6 w-fit gap-2 bg-primary text-primary-foreground hover:bg-primary/90",
         })}
       >
-        Acessar certificado
+        {jaAvaliou ? "Acessar certificado" : "Preencher avaliação"}
         <ArrowUpRight className="size-4" />
       </Link>
     </div>

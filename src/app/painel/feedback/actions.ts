@@ -50,6 +50,7 @@ export async function enviarFeedback(formData: FormData): Promise<Result> {
   if (error) return { ok: false, error: error.message };
 
   revalidatePath("/painel/feedback");
+  revalidatePath("/painel/certificado");
   revalidatePath("/admin/feedbacks");
   revalidatePath("/admin");
   return { ok: true };

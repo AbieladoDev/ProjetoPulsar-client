@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, MessageSquare } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getProfileWithEmpresa } from "@/lib/auth/get-profile";
 import {
@@ -14,6 +14,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CertificateView, type CertificateData } from "./certificate-view";
 import { EmitirButton } from "./emitir-button";
+import { AvaliacaoForm } from "./avaliacao-form";
 
 type CertificadoRow = {
   id: string;
@@ -125,6 +126,14 @@ export default async function CertificadoPage({
   const historico = (historicoRaw ?? []) as CertificadoRow[];
   const podeEmitir = Boolean(profile.empresa_obj);
 
+  // Verifica se já enviou pelo menos 1 feedback
+  const { count: feedbackCount } = await supabase
+    .from("feedbacks")
+    .select("id", { count: "exact", head: true })
+    .eq("profile_id", profile.id);
+
+  const jaAvaliou = (feedbackCount ?? 0) > 0;
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -144,10 +153,12 @@ export default async function CertificadoPage({
             Certificado
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Emita seu certificado de participação e baixe em PDF.
+            {jaAvaliou
+              ? "Emita seu certificado de participação e baixe em PDF."
+              : "Preencha a avaliação abaixo para liberar seu certificado."}
           </p>
         </div>
-        {podeEmitir && <EmitirButton />}
+        {podeEmitir && jaAvaliou && <EmitirButton />}
       </div>
 
       {!podeEmitir && (
@@ -159,6 +170,24 @@ export default async function CertificadoPage({
               turma. Entre em contato com a equipe.
             </CardDescription>
           </CardHeader>
+        </Card>
+      )}
+
+      {podeEmitir && !jaAvaliou && (
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <MessageSquare className="size-5 text-primary" />
+              <CardTitle>Avaliação obrigatória</CardTitle>
+            </div>
+            <CardDescription>
+              Para emitir seu certificado, é necessário preencher uma avaliação
+              sobre sua experiência. Após enviar, o certificado será liberado.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AvaliacaoForm />
+          </CardContent>
         </Card>
       )}
 

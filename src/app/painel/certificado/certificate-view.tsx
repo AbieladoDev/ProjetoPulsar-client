@@ -244,7 +244,7 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
               className="text-sm font-semibold uppercase leading-relaxed tracking-wide"
               style={{ color: greenDark }}
             >
-              Realizou o Programa Pulsar — Treinamento em Saúde Emocional e
+              Realizou o Projeto Pulsar — Treinamento em Saúde Emocional e
               Desenvolvimento Humano.
             </p>
 
@@ -257,7 +257,7 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
               ambiente de trabalho, em conformidade com as diretrizes da NR-1 —
               Gerenciamento de Riscos Ocupacionais. O programa foi realizado com
               a carga horária de{" "}
-              <strong style={{ color: "#1a1a1a" }}>{cert.duracao}</strong>
+              <strong style={{ color: "#1a1a1a" }}>{cert.duracao} horas</strong>
               {cert.data_evento && (
                 <>
                   {" "}no período de{" "}
@@ -276,33 +276,22 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
             >
               Participante
             </p>
-            <p
-              className="mt-1 text-2xl font-bold uppercase tracking-tight"
-              style={{ color: "#1a1a1a" }}
-            >
-              {cert.nome_aluno}
-            </p>
+            <div className="mt-1 flex flex-col items-center">
+              <p
+                className="text-2xl font-bold uppercase tracking-tight"
+                style={{ color: "#1a1a1a" }}
+              >
+                {cert.nome_aluno}
+              </p>
+              <div
+                className="mt-1 h-px w-72"
+                style={{ background: "#1a1a1a" }}
+              />
+            </div>
           </div>
 
           {/* Footer */}
-          <div className="flex w-full flex-col items-center gap-5">
-            {/* Signature */}
-            <div className="flex flex-col items-center">
-              <div
-                className="mb-2 h-px w-52"
-                style={{ background: "#1a1a1a" }}
-              />
-              <p
-                className="text-sm font-semibold"
-                style={{ color: "#1a1a1a" }}
-              >
-                Juliana Freitas da Silva
-              </p>
-              <p className="text-[9px] tracking-wide" style={{ color: "#888" }}>
-                Mentora do ProjetoPulsar
-              </p>
-            </div>
-
+          <div className="flex w-full flex-col gap-5">
             {/* Bottom info row */}
             <div className="flex w-full items-end justify-between">
               <div className="flex items-center gap-6">
@@ -344,14 +333,32 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
                 </div>
               </div>
 
-              {/* Logo ABRATH */}
-              <Image
-                src="/logo-abrath.png"
-                alt="ABRATH"
-                width={64}
-                height={64}
-                className="object-contain"
-              />
+              {/* Signature + Logo ABRATH */}
+              <div className="flex items-end gap-6">
+                <div className="flex flex-col items-center">
+                  <div
+                    className="mb-2 h-px w-52"
+                    style={{ background: "#1a1a1a" }}
+                  />
+                  <p
+                    className="text-sm font-semibold"
+                    style={{ color: "#1a1a1a" }}
+                  >
+                    Juliana Freitas da Silva
+                  </p>
+                  <p className="text-[9px] tracking-wide" style={{ color: "#888" }}>
+                    Mentora do ProjetoPulsar
+                  </p>
+                </div>
+
+                <Image
+                  src="/logo-abrath.png"
+                  alt="ABRATH"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
             </div>
           </div>
         </div>
