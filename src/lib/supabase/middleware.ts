@@ -38,14 +38,28 @@ export async function updateSession(request: NextRequest) {
   const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p));
   const isAuthRoute = AUTH_ROUTES.includes(pathname);
 
-  if (!user && isProtected) {
+  let effectiveUser = user;
+  if (user && (isProtected || isAuthRoute)) {
+    const { data: profile, error } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (!profile && !error) {
+      await supabase.auth.signOut();
+      effectiveUser = null;
+    }
+  }
+
+  if (!effectiveUser && isProtected) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     url.searchParams.set("redirect", pathname);
     return NextResponse.redirect(url);
   }
 
-  if (user && isAuthRoute) {
+  if (effectiveUser && isAuthRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/painel";
     return NextResponse.redirect(url);

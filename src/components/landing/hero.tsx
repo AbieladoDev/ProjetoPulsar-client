@@ -31,7 +31,7 @@ export function Hero() {
           </h1>
 
           <p className="mt-4 max-w-md text-base font-medium text-primary">
-            Psicoterapeuta · Facilitadora de desenvolvimento humano
+            Facilitadora de desenvolvimento humano
           </p>
 
           <div className="mt-8 flex max-w-md flex-col gap-4 text-sm leading-relaxed text-foreground/75 md:text-[15px]">
@@ -114,7 +114,7 @@ export function Hero() {
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-muted ring-1 ring-foreground/10">
             <Image
               src="/img/Perfil.jpeg"
-              alt="Juliana Freitas — Psicoterapeuta e Facilitadora"
+              alt="Juliana Freitas — Facilitadora"
               fill
               sizes="(min-width: 1024px) 55vw, 100vw"
               className="object-cover"
