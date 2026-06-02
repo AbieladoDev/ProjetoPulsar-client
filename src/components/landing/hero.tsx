@@ -24,7 +24,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex flex-col"
+          className="order-2 flex flex-col lg:order-1"
         >
           <h1 className="text-[44px] font-bold leading-[1] tracking-tight text-foreground md:text-[56px] lg:text-[64px]">
             Juliana Freitas
@@ -102,7 +102,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          className="relative mx-auto w-full max-w-md lg:ml-auto lg:max-w-lg"
+          className="relative order-1 mx-auto w-full max-w-md lg:order-2 lg:ml-auto lg:max-w-lg"
         >
           {/* Offset accent frame */}
           <div

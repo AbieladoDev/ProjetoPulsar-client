@@ -13,6 +13,8 @@ export type CertificateData = {
   local: string;
   duracao: string;
   data_evento: string | null;
+  data_inicio: string | null;
+  data_fim: string | null;
   emitido_em: string;
 };
 
@@ -141,12 +143,16 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
         </div>
       </div>
 
-      {/* Certificate */}
-      <div
-        ref={certRef}
-        className="certificate-print relative mx-auto flex aspect-[297/210] w-full max-w-5xl overflow-hidden bg-white shadow-xl"
-        style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
-      >
+      {/* Certificate (scroll horizontal no mobile pra manter legível) */}
+      <div className="-mx-4 overflow-x-auto pb-2 sm:mx-0 sm:overflow-visible">
+        <p className="no-print mb-2 px-4 text-center text-[11px] text-muted-foreground sm:hidden">
+          Arraste para os lados para ver o certificado completo
+        </p>
+        <div
+          ref={certRef}
+          className="certificate-print relative mx-auto flex aspect-[297/210] w-[960px] max-w-5xl shrink-0 overflow-hidden bg-white shadow-xl sm:w-full"
+          style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+        >
         {/* ── Left accent bar ── */}
         <div
           aria-hidden
@@ -251,7 +257,7 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
               className="text-sm font-semibold uppercase leading-relaxed tracking-wide"
               style={{ color: greenDark }}
             >
-              Realizou o Projeto Pulsar — Treinamento em Saúde Emocional e
+              Realizou o Projeto Pulsar — Focado em Saúde Emocional e
               Desenvolvimento Humano.
             </p>
 
@@ -259,22 +265,26 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
               className="mt-4 text-[11px] leading-[1.7]"
               style={{ color: "#444" }}
             >
-              Como ação institucional voltada ao cuidado com a saúde emocional
-              de seus colaboradores e à atenção aos fatores psicossociais no
-              ambiente de trabalho, em conformidade com as diretrizes da NR-1 —
-              Gerenciamento de Riscos Ocupacionais. O programa foi realizado com
-              a carga horária de{" "}
-              <strong style={{ color: "#1a1a1a" }}>{cert.duracao} horas</strong>
-              {cert.data_evento && (
+              Com ação institucional voltada ao cuidado com a saúde emocional de
+              seus colaboradores e à atenção aos fatores de riscos psicossociais
+              no ambiente de trabalho, em conformidade com as diretrizes da
+              NR-1 – Gerenciamento de Riscos Ocupacionais, o Projeto Pulsar foi
+              realizado com carga horária total de{" "}
+              <strong style={{ color: "#1a1a1a" }}>{cert.duracao}</strong>
+              {cert.data_inicio && cert.data_fim && (
                 <>
-                  {" "}no período de{" "}
+                  ,{" "}no período de{" "}
                   <strong style={{ color: "#1a1a1a" }}>
-                    {formatDateLong(cert.data_evento)}
+                    {formatDateLong(cert.data_inicio)}
+                  </strong>{" "}a{" "}
+                  <strong style={{ color: "#1a1a1a" }}>
+                    {formatDateLong(cert.data_fim)}
                   </strong>
                 </>
               )}
-              , incluindo palestra inicial e encontros individuais de apoio ao
-              bem-estar no ambiente de trabalho.
+              , contemplando palestra inicial de sensibilização e momentos
+              individuais de descompressão emocional, promovendo bem-estar,
+              reflexão e desenvolvimento humano no ambiente de trabalho.
             </p>
 
             <p
@@ -375,6 +385,7 @@ export function CertificateView({ cert }: { cert: CertificateData }) {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </>

@@ -120,6 +120,25 @@ export function EmpresaFormDialog({ mode, empresa }: Props) {
             />
           </div>
 
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              <Label>Data de início</Label>
+              <DatePicker
+                name="data_inicio"
+                defaultValue={empresa?.data_inicio ?? ""}
+                placeholder="Início do treinamento"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label>Data de fim</Label>
+              <DatePicker
+                name="data_fim"
+                defaultValue={empresa?.data_fim ?? ""}
+                placeholder="Fim do treinamento"
+              />
+            </div>
+          </div>
+
           <div className="flex flex-col gap-2">
             <Label htmlFor="descricao">Descrição (opcional)</Label>
             <Textarea

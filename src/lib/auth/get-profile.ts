@@ -9,6 +9,8 @@ export type Empresa = {
   local: string;
   duracao: string;
   data_evento: string | null;
+  data_inicio: string | null;
+  data_fim: string | null;
   descricao: string | null;
   created_at: string;
 };

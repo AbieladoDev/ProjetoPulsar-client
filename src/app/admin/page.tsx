@@ -282,6 +282,12 @@ function QuickActionsCard({
           label="Certificados"
           meta={`${certsCount} emitido${certsCount !== 1 ? "s" : ""}`}
         />
+        <ActionLink
+          href="/certificado/preview"
+          label="Preview do certificado"
+          meta="Ver modelo · Layout"
+          external
+        />
       </div>
     </div>
   );
@@ -291,14 +297,18 @@ function ActionLink({
   href,
   label,
   meta,
+  external,
 }: {
   href: string;
   label: string;
   meta: string;
+  external?: boolean;
 }) {
   return (
     <Link
       href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
       className="group flex items-center justify-between border-b border-border py-2.5 text-sm font-medium transition-colors hover:text-primary"
     >
       <div className="flex flex-col gap-0.5">

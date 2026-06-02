@@ -32,7 +32,7 @@ export async function emitirCertificado(): Promise<Result> {
 
   const { data: empresa } = await supabase
     .from("empresas")
-    .select("id, nome, local, duracao, data_evento")
+    .select("id, nome, local, duracao, data_evento, data_inicio, data_fim")
     .eq("id", profile.empresa_id)
     .single();
 
@@ -67,6 +67,8 @@ export async function emitirCertificado(): Promise<Result> {
     local_snapshot: empresa.local,
     duracao_snapshot: empresa.duracao,
     data_evento_snapshot: empresa.data_evento,
+    data_inicio_snapshot: empresa.data_inicio,
+    data_fim_snapshot: empresa.data_fim,
   });
 
   if (error) return { ok: false, error: error.message };

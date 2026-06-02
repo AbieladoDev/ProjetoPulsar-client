@@ -11,6 +11,8 @@ const SAMPLE_CERT = {
   local: "São Paulo, SP",
   duracao: "8 horas",
   data_evento: "2026-06-01",
+  data_inicio: "2026-06-01",
+  data_fim: "2026-06-03",
   emitido_em: new Date().toISOString(),
 };
 

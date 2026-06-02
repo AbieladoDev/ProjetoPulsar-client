@@ -24,6 +24,8 @@ type CertificadoRow = {
   local_snapshot: string;
   duracao_snapshot: string;
   data_evento_snapshot: string | null;
+  data_inicio_snapshot: string | null;
+  data_fim_snapshot: string | null;
   emitido_em: string;
 };
 
@@ -54,7 +56,7 @@ export default async function CertificadoPage({
     const { data: cert } = await supabase
       .from("certificados_emitidos")
       .select(
-        "id, codigo, nome_aluno_snapshot, nome_empresa_snapshot, local_snapshot, duracao_snapshot, data_evento_snapshot, emitido_em",
+        "id, codigo, nome_aluno_snapshot, nome_empresa_snapshot, local_snapshot, duracao_snapshot, data_evento_snapshot, data_inicio_snapshot, data_fim_snapshot, emitido_em",
       )
       .eq("codigo", params.codigo)
       .eq("profile_id", profile.id)
@@ -93,6 +95,8 @@ export default async function CertificadoPage({
       local: cert.local_snapshot,
       duracao: cert.duracao_snapshot,
       data_evento: cert.data_evento_snapshot,
+      data_inicio: cert.data_inicio_snapshot,
+      data_fim: cert.data_fim_snapshot,
       emitido_em: cert.emitido_em,
     };
 
@@ -118,7 +122,7 @@ export default async function CertificadoPage({
   const { data: historicoRaw } = await supabase
     .from("certificados_emitidos")
     .select(
-      "id, codigo, nome_aluno_snapshot, nome_empresa_snapshot, local_snapshot, duracao_snapshot, data_evento_snapshot, emitido_em",
+      "id, codigo, nome_aluno_snapshot, nome_empresa_snapshot, local_snapshot, duracao_snapshot, data_evento_snapshot, data_inicio_snapshot, data_fim_snapshot, emitido_em",
     )
     .eq("profile_id", profile.id)
     .order("emitido_em", { ascending: false });

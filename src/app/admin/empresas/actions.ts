@@ -29,6 +29,8 @@ type EmpresaInput = {
   local: string;
   duracao: string;
   data_evento: string | null;
+  data_inicio: string | null;
+  data_fim: string | null;
   descricao: string | null;
 };
 
@@ -37,13 +39,15 @@ function parseFormData(formData: FormData): EmpresaInput | { error: string } {
   const local = String(formData.get("local") ?? "").trim();
   const duracao = String(formData.get("duracao") ?? "").trim();
   const data_evento = String(formData.get("data_evento") ?? "").trim() || null;
+  const data_inicio = String(formData.get("data_inicio") ?? "").trim() || null;
+  const data_fim = String(formData.get("data_fim") ?? "").trim() || null;
   const descricao = String(formData.get("descricao") ?? "").trim() || null;
 
   if (!nome) return { error: "Informe o nome da empresa." };
   if (!local) return { error: "Informe o local." };
   if (!duracao) return { error: "Informe a duração." };
 
-  return { nome, local, duracao, data_evento, descricao };
+  return { nome, local, duracao, data_evento, data_inicio, data_fim, descricao };
 }
 
 export async function createEmpresa(formData: FormData): Promise<Result> {
