@@ -141,7 +141,7 @@ export function Footer() {
             © {new Date().getFullYear()} Juliana Freitas — Projeto Pulsar.
           </p>
           <p className="font-mono uppercase tracking-[0.22em]">
-            Criação: Flávia Silva · Apoio{" "}
+            Criação: Flávia Silva <Oliveira></Oliveira> · Apoio{" "}
             <a
               href="https://db.app.br/"
               target="_blank"
