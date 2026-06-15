@@ -141,13 +141,13 @@ export function Footer() {
             © {new Date().getFullYear()} Juliana Freitas — Projeto Pulsar.
           </p>
           <p className="font-mono uppercase tracking-[0.22em]">
-            Criação: <Flávia.dev /> · Apoio{" "}
-              <a href="https://portfolioflavia.vercel.app/">
-                target="_blank"
+            Criação:
+            <a href="https://portfolioflavia.vercel.app/"
+              target="_blank"
               rel="noreferrer"
-              className="transition-colors hover:text-primary"
-                <Flávia.dev />
-              </a>
+              className="transition-colors hover:text-primary">
+              Flávia.dev
+            </a> · Apoio{" "}
             <a
               href="https://db.app.br/"
               target="_blank"
