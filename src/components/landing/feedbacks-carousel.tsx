@@ -41,117 +41,83 @@ export function FeedbacksCarousel({ items }: { items: PublicFeedback[] }) {
     el.scrollBy({ left: step * dir, behavior: "smooth" });
   }
 
-  return (
-    <section className="py-16 lg:py-20">
-      <div className="container-page">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 grid gap-8 border-b border-border pb-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-12"
-        >
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              Casos Reais
-            </p>
-            <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-4xl">
-              O que dizem sobre o Pulsar
-            </h2>
-          </div>
-          <div className="flex flex-col items-start gap-5">
-            <p className="text-sm leading-relaxed text-foreground/70 md:text-base">
-              Depoimentos de participantes que vivenciaram o Projeto Pulsar em
-              suas equipes e instituições.
-            </p>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => scrollBy(-1)}
-                disabled={!canPrev}
-                aria-label="Anterior"
-                className="flex size-9 items-center justify-center border border-border bg-background transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-30"
-              >
-                <ChevronLeft className="size-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollBy(1)}
-                disabled={!canNext}
-                aria-label="Próximo"
-                className="flex size-9 items-center justify-center border border-border bg-background transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-30"
-              >
-                <ChevronRight className="size-4" />
-              </button>
-            </div>
-          </div>
-        </motion.div>
+  // Sem depoimento aprovado, a seção não aparece: "em breve" num site
+  // institucional passa a impressão de projeto vazio.
+  if (items.length === 0) return null;
 
-        {/* Carousel */}
-        {items.length === 0 ? (
-          <div className="border border-dashed border-border p-10 text-center">
-            <p className="text-sm text-muted-foreground">
-              Em breve, depoimentos de participantes aparecerão aqui.
+  return (
+    <section className="bg-salvia-50 py-20 font-corpo md:py-24">
+      <div className="container-page">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-salvia-700">
+              Depoimentos
             </p>
+            <h3 className="mt-3 font-display text-[34px] font-light leading-tight text-salvia-700 md:text-[44px]">
+              O que dizem sobre o Pulsar
+            </h3>
           </div>
-        ) : (
-        <div className="relative">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => scrollBy(-1)}
+              disabled={!canPrev}
+              aria-label="Anterior"
+              className="flex size-10 items-center justify-center rounded-full border border-petroleo/25 text-petroleo transition-colors hover:border-petroleo disabled:cursor-not-allowed disabled:opacity-30"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollBy(1)}
+              disabled={!canNext}
+              aria-label="Próximo"
+              className="flex size-10 items-center justify-center rounded-full border border-petroleo/25 text-petroleo transition-colors hover:border-petroleo disabled:cursor-not-allowed disabled:opacity-30"
+            >
+              <ChevronRight className="size-4" />
+            </button>
+          </div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+        >
           <div
             ref={scrollerRef}
-            className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {items.map((f, i) => (
+            {items.map((f) => (
               <article
                 key={f.id}
                 data-card
-                className="flex w-[85%] shrink-0 snap-start flex-col justify-between gap-5 border border-border bg-card p-6 sm:w-[420px] md:p-7"
+                className="flex w-[85%] shrink-0 snap-start flex-col justify-between gap-6 bg-white/70 p-7 sm:w-[420px] md:p-8"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex size-9 items-center justify-center border border-primary/30 bg-primary/10 text-primary">
-                    <Quote className="size-4" />
-                  </div>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                    {String(i + 1).padStart(2, "0")} /{" "}
-                    {String(items.length).padStart(2, "0")}
-                  </span>
-                </div>
-
+                <Quote className="size-6 text-ouro" strokeWidth={1.5} />
                 {f.nota !== null && (
-                  <div className="flex items-center gap-0.5">
+                  <div className="flex items-center gap-0.5" aria-label={`Nota ${f.nota} de 5`}>
                     {Array.from({ length: 5 }).map((_, k) => (
                       <Star
                         key={k}
                         className={
                           "size-3.5 " +
-                          (k < (f.nota ?? 0)
-                            ? "fill-amber-400 text-amber-400"
-                            : "text-muted-foreground/30")
+                          (k < (f.nota ?? 0) ? "fill-ouro text-ouro" : "text-salvia-300")
                         }
                       />
                     ))}
                   </div>
                 )}
-
-                <p className="text-sm leading-relaxed text-foreground/85 md:text-[15px]">
-                  “{f.mensagem}”
-                </p>
-
-                <div className="border-t border-border pt-4">
-                  <p className="text-sm font-semibold uppercase tracking-tight">
-                    {f.nome}
-                  </p>
-                  {f.empresa && (
-                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                      {f.empresa}
-                    </p>
-                  )}
+                <p className="font-display text-[20px] leading-snug text-petroleo">“{f.mensagem}”</p>
+                <div className="border-t border-salvia-700/15 pt-4">
+                  <p className="text-[14px] font-semibold text-salvia-900">{f.nome}</p>
+                  {f.empresa && <p className="text-[12px] text-salvia-700">{f.empresa}</p>}
                 </div>
               </article>
             ))}
           </div>
-        </div>
-        )}
+        </motion.div>
       </div>
     </section>
   );

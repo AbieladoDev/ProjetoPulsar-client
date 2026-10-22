@@ -1,9 +1,9 @@
-import { WHATSAPP_SIMPLE } from "@/data/landing";
+import { MENSAGENS, whatsapp } from "@/data/landing";
 
 export function WhatsAppFloat() {
   return (
     <a
-      href={WHATSAPP_SIMPLE}
+      href={whatsapp(MENSAGENS.flutuante)}
       target="_blank"
       rel="noreferrer"
       aria-label="Fale no WhatsApp"

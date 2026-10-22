@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Ícone do Projeto Pulsar: a órbita e o ponto do logo, sobre o verde-petróleo. -->
+  <rect width="64" height="64" rx="14" fill="#123430"/>
+  <path d="M10 46 Q30 8 54 34" fill="none" stroke="#B48C54" stroke-width="3.2" stroke-linecap="round"/>
+  <circle cx="40.9" cy="24.5" r="5" fill="#B48C54"/>
+</svg>

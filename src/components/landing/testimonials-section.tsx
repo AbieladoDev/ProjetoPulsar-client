@@ -13,16 +13,30 @@ type FeedbackRow = {
   nota: number | null;
 };
 
-export async function TestimonialsSection() {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("feedbacks")
-    .select("id, nome_snapshot, empresa_snapshot, mensagem, nota")
-    .eq("status", "aprovado")
-    .order("created_at", { ascending: false })
-    .limit(20);
+/**
+ * Depoimentos aprovados. Se o Supabase falhar (fora do ar, sem variável de
+ * ambiente), a home continua de pé: o carrossel só não aparece. Antes, um
+ * erro aqui derrubava a página inicial inteira com 500.
+ */
+async function buscarFeedbacks(): Promise<FeedbackRow[]> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("feedbacks")
+      .select("id, nome_snapshot, empresa_snapshot, mensagem, nota")
+      .eq("status", "aprovado")
+      .order("created_at", { ascending: false })
+      .limit(20);
+    if (error) throw error;
+    return (data ?? []) as FeedbackRow[];
+  } catch (erro) {
+    console.error("[landing] depoimentos indisponíveis:", erro);
+    return [];
+  }
+}
 
-  const feedbacks: PublicFeedback[] = ((data ?? []) as FeedbackRow[]).map(
+export async function TestimonialsSection() {
+  const feedbacks: PublicFeedback[] = (await buscarFeedbacks()).map(
     (f) => ({
       id: f.id,
       nome: f.nome_snapshot,

@@ -56,6 +56,20 @@
   --color-pulsar-700: #b45309;
   --color-pulsar-800: #92400e;
   --color-pulsar-900: #78350f;
+
+  /* Identidade do Projeto Pulsar (out/2026) — cores EXATAS da apresentação
+     e do logo; ver docs/identidade-visual.md. Usadas pela landing. */
+  --color-petroleo: #123430;
+  --color-ouro: #b48c54;
+  --color-salvia-900: #354128;
+  --color-salvia-700: #6a704f;
+  --color-salvia-500: #929e77;
+  --color-salvia-300: #b0ba96;
+  --color-salvia-100: #dde1c8;
+  --color-salvia-50: #f2f5e6;
+  --color-seda: #efefec;
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-corpo: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {

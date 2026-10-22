@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Cormorant_Garamond, Montserrat, Space_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
@@ -7,6 +7,23 @@ import "./globals.css";
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
+// Identidade do Projeto Pulsar (out/2026) — usadas só pela landing.
+// Os títulos da marca são Relicta Light (fonte do Canva, sem versão web);
+// Cormorant Garamond Light é a serifa fina de alto contraste mais próxima.
+// O texto da marca é Montserrat, igual à apresentação.
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  weight: ["300", "400", "500", "600"],
   subsets: ["latin"],
 });
 
@@ -31,7 +48,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={`${spaceGrotesk.variable} antialiased`}>
+      <body
+        className={`${spaceGrotesk.variable} ${cormorant.variable} ${montserrat.variable} antialiased`}
+      >
         <Providers>
           {children}
           <Toaster position="top-right" />

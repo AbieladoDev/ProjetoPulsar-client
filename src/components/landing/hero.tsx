@@ -2,140 +2,114 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Instagram, Facebook, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { MENSAGENS, whatsapp } from "@/data/landing";
+import { Brilho, FundoSeda, Orbita, botao } from "./marca";
 
-const heroNav = [
-  { href: "#sobre", label: "Sobre" },
-  { href: "#publicos", label: "Públicos" },
-  { href: "#processo", label: "Como Funciona" },
-  { href: "#depoimentos", label: "Na Prática" },
-  { href: "#programas", label: "Projeto Pulsar" },
-];
-
+/*
+ * 01 · Abertura institucional (direção, item 1): apresentar o Projeto PULSAR, o
+ * público e a transformação, com a chamada comercial. O projeto é o
+ * protagonista — a Juliana aparece só como assinatura, como na capa da
+ * apresentação.
+ */
 export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative overflow-hidden py-12 lg:py-16"
+      // Sobe por baixo do cabeçalho transparente para a seda começar no topo.
+      className="relative -mt-[72px] flex min-h-[92svh] flex-col overflow-hidden pt-[72px] font-corpo"
     >
-      <div className="container-page grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-20">
-        {/* LEFT — Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="order-2 flex flex-col lg:order-1"
-        >
-          <h1 className="text-[44px] font-bold leading-[1] tracking-tight text-foreground md:text-[56px] lg:text-[64px]">
-            Juliana Freitas
-          </h1>
+      <FundoSeda className="opacity-90" />
+      {/* Véu sálvia nas bordas, como o degradê da capa da apresentação. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgb(146_158_119/0.22)_100%)]"
+      />
 
-          <p className="mt-4 max-w-md text-base font-medium text-primary">
-            Facilitadora de desenvolvimento humano
+      <Orbita
+        animado
+        traco={1}
+        className="absolute -left-[10%] top-[52%] w-[120%] max-w-none opacity-70 md:top-[46%]"
+      />
+      <Brilho className="absolute right-[8%] top-[18%] size-5 text-salvia-900/70 md:size-7" />
+      <Brilho className="absolute right-[6.5%] top-[14%] size-2.5 text-salvia-900/60 md:size-3" />
+
+      <div className="container-page relative flex flex-1 flex-col items-center justify-center py-16 text-center md:py-20">
+        <h1 className="sr-only">Projeto Pulsar — saúde mental e desenvolvimento humano nas empresas</h1>
+
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-[640px]"
+        >
+          <Image
+            src="/brand/logo/pulsar-logo-subtitulo.png"
+            alt="Projeto Pulsar — saúde mental e desenvolvimento humano nas empresas"
+            width={1075}
+            height={364}
+            priority
+            className="h-auto w-full"
+          />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.35 }}
+          className="mt-10 flex flex-col items-center"
+        >
+          <p className="font-display text-[28px] font-light italic leading-tight text-salvia-700 md:text-[36px]">
+            Pessoas mais conscientes. Empresas mais fortes.
           </p>
 
-          <div className="mt-8 flex max-w-md flex-col gap-4 text-sm leading-relaxed text-foreground/75 md:text-[15px]">
-            <p>
-              Transformo relações, comunicação e bem-estar em equipes que cuidam
-              de pessoas. Minha prática integra escuta, percepção relacional e
-              processos aplicados ao cotidiano profissional.
-            </p>
-            <p className="italic">
-              Porque saúde emocional também é produtividade.
-            </p>
-          </div>
+          <p className="mt-6 max-w-[560px] text-[15px] leading-relaxed text-salvia-900/85 md:text-base">
+            Programa de desenvolvimento humano para empresas e instituições: espaços estruturados
+            de pausa, escuta e regulação emocional, que contribuem para a prevenção e o cuidado com
+            os riscos psicossociais previstos na <strong className="font-semibold">NR-1</strong>.
+          </p>
 
-          {/* Vertical nav */}
-          <nav className="mt-10 flex flex-col">
-            <div className="border-t border-border" />
-            {heroNav.map((item, i) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="group flex items-center justify-between border-b border-border py-3 text-sm font-medium uppercase tracking-[0.12em] transition-colors hover:bg-foreground hover:text-background"
-              >
-                <div className="flex items-center gap-4 pl-1">
-                  <span className="font-mono text-xs text-muted-foreground group-hover:text-background/60">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span>{item.label}</span>
-                </div>
-                <ArrowUpRight className="mr-1 size-4 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-background" />
-              </a>
-            ))}
-          </nav>
-
-          {/* Socials */}
-          <div className="mt-auto flex items-center gap-2 pt-10">
+          <div className="mt-9 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
             <a
-              href="https://www.instagram.com/jufreitas.essencia/"
+              href={whatsapp(MENSAGENS.proposta)}
               target="_blank"
               rel="noreferrer"
-              aria-label="Instagram"
-              className="flex size-10 items-center justify-center rounded-md border border-border text-foreground/70 transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
+              className={botao.primario}
             >
-              <Instagram className="size-4" />
+              Solicitar uma proposta
+              <ArrowRight className="size-4" />
             </a>
             <a
-              href="https://www.facebook.com/juh.jf"
+              href={whatsapp(MENSAGENS.equipe)}
               target="_blank"
               rel="noreferrer"
-              aria-label="Facebook"
-              className="flex size-10 items-center justify-center rounded-md border border-border text-foreground/70 transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
+              className={cn(botao.secundario, "bg-seda/40 backdrop-blur-sm")}
             >
-              <Facebook className="size-4" />
-            </a>
-            <a
-              href="https://www.tiktok.com/@jufreitas.essencia"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="TikTok"
-              className="flex size-10 items-center justify-center rounded-md border border-border text-foreground/70 transition-colors hover:border-foreground hover:bg-foreground hover:text-background"
-            >
-              <TikTokIcon className="size-4" />
+              Conversar sobre as necessidades da equipe
             </a>
           </div>
-        </motion.div>
 
-        {/* RIGHT — Photo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          className="relative order-1 mx-auto w-full max-w-md lg:order-2 lg:ml-auto lg:max-w-lg"
-        >
-          {/* Offset accent frame */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 hidden translate-x-4 translate-y-4 rounded-sm border border-foreground/20 sm:block"
-          />
-
-          {/* Photo container */}
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-muted ring-1 ring-foreground/10">
-            <Image
-              src="/img/Perfil.jpeg"
-              alt="Juliana Freitas — Facilitadora"
-              fill
-              sizes="(min-width: 1024px) 55vw, 100vw"
-              className="object-cover"
-              priority
-            />
-          </div>
+          <p className="mt-10 text-[11px] font-medium uppercase tracking-[0.3em] text-salvia-700">
+            Consciência · Cuidado · Relações · Humanização
+          </p>
         </motion.div>
       </div>
-    </section>
-  );
-}
 
-function TikTokIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-    >
-      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.6a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.03Z" />
-    </svg>
+      {/* Assinatura, como no canto da capa: quem idealizou, sem roubar a cena. */}
+      <a
+        href="#juliana"
+        className="container-page relative flex items-center justify-center gap-3 pb-8 text-[12px] text-salvia-900/70 transition-colors hover:text-petroleo md:justify-end"
+      >
+        <span>Idealizado e conduzido por</span>
+        <Image
+          src="/brand/logo/juliana-assinatura.png"
+          alt="Juliana Freitas"
+          width={1840}
+          height={554}
+          className="h-9 w-auto brightness-[0.55] contrast-125"
+        />
+      </a>
+    </section>
   );
 }
