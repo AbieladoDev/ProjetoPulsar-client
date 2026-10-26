@@ -12,6 +12,8 @@ type Item = (typeof testimonials)[number];
  * 06 · O Pulsar na prática (direção, item 6): experiências e registros REAIS e
  * autorizados, com contexto. Só entra aqui foto/vídeo do trabalho de verdade —
  * as imagens geradas por IA do manual da marca ficam de fora desta seção.
+ * Os vídeos saem da grade e vão para <Videos />, depois dos depoimentos
+ * (pedido da cliente em 26/10/2026).
  */
 export function Testimonials() {
   return (
@@ -25,8 +27,26 @@ export function Testimonials() {
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((item, i) => (
+        <div className="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {testimonials.filter((item) => item.type !== "video").map((item, i) => (
+            <Celula key={i} item={item} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Vídeos do "na prática", exibidos depois do carrossel de depoimentos. */
+export function Videos() {
+  return (
+    <section className="py-20 font-corpo md:py-24">
+      <div className="container-page">
+        <h3 className="font-display text-[34px] font-light leading-tight text-salvia-700 md:text-[44px]">
+          O Pulsar em vídeo
+        </h3>
+        <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {testimonials.filter((item) => item.type === "video").map((item, i) => (
             <Celula key={i} item={item} index={i} />
           ))}
         </div>

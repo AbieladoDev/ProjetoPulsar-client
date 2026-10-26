@@ -23,8 +23,8 @@ export const navLinks = [
   { href: "#projeto", label: "Projeto" },
   { href: "#metodologia", label: "Metodologia" },
   { href: "#para-quem", label: "Para quem é" },
-  { href: "#experiencias", label: "Experiências" },
   { href: "#juliana", label: "Sobre Juliana" },
+  { href: "#experiencias", label: "Experiências" },
   { href: "#contato", label: "Contato" },
 ] as const;
 
@@ -162,7 +162,7 @@ export const cicloContinuo = ["escutar", "conscientizar", "regular", "acompanhar
 export const formatos = [
   {
     nome: "Despertar",
-    duracao: "1 mês",
+    duracao: "Acompanhamento de 1 mês",
     resumo:
       "A primeira experiência da empresa com o Pulsar: entrar, ouvir, observar e gerar consciência antes de assumir um compromisso maior.",
     itens: [
@@ -175,7 +175,7 @@ export const formatos = [
   },
   {
     nome: "Expansão",
-    duracao: "6 meses",
+    duracao: "Acompanhamento por 6 meses",
     resumo:
       "O trabalho se expande para as relações, as equipes e a convivência — cuidado e consciência como parte da cultura da empresa.",
     itens: [

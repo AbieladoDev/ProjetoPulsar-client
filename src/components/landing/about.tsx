@@ -6,8 +6,9 @@ import { juliana } from "@/data/landing";
 import { Brilho, FundoSeda, TituloSecao } from "./marca";
 
 /*
- * 07 · Quem conduz o PULSAR (direção, item 7): DEPOIS da metodologia, dos
- * públicos e das evidências — o site é do projeto.
+ * 06 · Quem conduz o PULSAR: DEPOIS da metodologia e dos públicos — o site é
+ * do projeto. Vinha depois das evidências; a cliente pediu em 26/10/2026 para
+ * apresentá-la antes delas.
  *
  * Foto: recorte de terno branco (public/brand/fotos/), escolhido pelo Arthur
  * em 22/10/2026. ⚠️ É imagem gerada por IA segundo o próprio manual da marca

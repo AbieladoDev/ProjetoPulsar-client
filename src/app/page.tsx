@@ -16,7 +16,9 @@ import { INSTAGRAM } from "@/data/landing";
  * Landing do Projeto Pulsar — remodelada em out/2026 pela "DIREÇÃO para
  * Remodelação" (public/). Ordem das seções = estrutura sugerida pela direção:
  * 01 abertura · 02 propósito e desafios · 03 proposta de valor · 04
- * metodologia · 05 para quem é · 06 na prática · 07 quem conduz · 08 contato.
+ * metodologia · 05 para quem é · 06 quem conduz · 07 na prática (vídeos por
+ * último, depois dos depoimentos) · 08 contato. Juliana antes das experiências
+ * e vídeos no fim foram pedidos da cliente em 26/10/2026.
  */
 
 export const metadata: Metadata = {
@@ -65,8 +67,8 @@ export default function HomePage() {
         <PropostaValor />
         <Metodologia />
         <Audiences />
-        <TestimonialsSection />
         <About />
+        <TestimonialsSection />
         <Contato />
       </main>
       <Footer />

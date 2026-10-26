@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { Testimonials } from "./testimonials";
+import { Testimonials, Videos } from "./testimonials";
 import {
   FeedbacksCarousel,
   type PublicFeedback,
@@ -50,6 +50,7 @@ export async function TestimonialsSection() {
     <>
       <Testimonials />
       <FeedbacksCarousel items={feedbacks} />
+      <Videos />
     </>
   );
 }
